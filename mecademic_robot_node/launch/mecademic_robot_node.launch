@@ -1,0 +1,21 @@
+<!-- This launch file starts all the correct ros nodes for the mecademic IK demo -->
+
+<launch>
+	<include file="$(find mecademic_description)/launch/meca_500_r3.launch"/>
+
+  	<node name="rviz" pkg="rviz" type="rviz" args="-d $(find mecademic_viz)/rviz/model.rviz" />
+
+  	<node name="mecademic_robot_driver" pkg="mecademic_robot_node" type="mecademic_robot_driver.py" />
+
+  	<node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+
+	<node name="joystick_demo" pkg="mecademic_robot_node" type="joystick_demo.py"/>
+	
+	<node name="rqt_ez_publisher" pkg="rqt_ez_publisher" type="rqt_ez_publisher"/>
+
+	<node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+    	<param name="use_gui" value="false" />
+    	<rosparam param="source_list">["/Mecademic_joint"]</rosparam>
+  	</node>
+
+</launch>
