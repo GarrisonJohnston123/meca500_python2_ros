@@ -137,9 +137,12 @@ class MecademicRobot_Driver():
                 # Robot Status Feedback
                 if self.socket_available:
                     self.socket_available = False  # Block other operations from using the socket while in use
+                    """
                     robot_status = self.robot.GetStatusRobot()
                     gripper_status = self.robot.GetStatusGripper()
+                    """
                     self.socket_available = True  # Release the socket so other processes can happen
+                    """
                     status = UInt8MultiArray()
                     status.data = [
                         robot_status["Activated"],
@@ -156,10 +159,11 @@ class MecademicRobot_Driver():
                         gripper_status["force overload"]
                     ]
                     self.status_publisher.publish(status)
-
+                """
                 # Position Feedback
                 self.feedback.get_data()
                 joints_fb = JointState()
+
                 joints_fb.position = feedback.joints
                 pose_fb = Pose()
                 pose_fb.position.x = feedback.cartesian[0]
@@ -174,16 +178,26 @@ class MecademicRobot_Driver():
                     pose_fb.orientation.z = feedback.cartesian[5]
                 self.joint_publisher.publish(joints_fb)
                 self.pose_publisher.publish(pose_fb)
+                
             except Exception as error:
                 rospy.logerr(str(error))
 
 
 if __name__ == "__main__":
+    
     robot = RobotController('192.168.0.100')
     feedback = RobotFeedback('192.168.0.100', "v8.1.6.141")
+    
+    print "Connecting to robot..."
     robot.connect()
     feedback.connect()
+    
+    print "Activating robot..."
     robot.ActivateRobot()
+    
+    print "Homing robot..."
     robot.home()
+    
+    print "Main loop started"
     driver = MecademicRobot_Driver(robot, feedback)
     rospy.spin()

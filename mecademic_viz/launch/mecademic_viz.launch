@@ -1,0 +1,17 @@
+<!-- This launch file starts all the correct ros nodes for visualizing the robot in RVIZ -->
+
+<launch>
+	<include file="$(find mecademic_description)/launch/meca_500_r3.launch"/>
+
+  	<node name="rviz" pkg="rviz" type="rviz" args="-d $(find mecademic_viz)/rviz/model.rviz" />-
+
+  	<node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+
+	<node name="mecademic_rviz_bridge" pkg="mecademic_viz" type="mecademic_rviz_bridge.py"/>
+
+	<node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+    	<param name="use_gui" value="false" />
+    	<rosparam param="source_list">["/joint_state_rviz"]</rosparam>
+  	</node>
+
+</launch>
