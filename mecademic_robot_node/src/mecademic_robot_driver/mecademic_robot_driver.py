@@ -19,14 +19,14 @@ class MecademicRobot_Driver():
         """Constructor for the ROS MecademicRobot Driver
         """
         rospy.init_node("MecademicRobot_driver", anonymous=True)
-        self.joint_subscriber = rospy.Subscriber("MecademicRobot_joint", JointState, self.joint_callback)
-        self.pose_subscriber = rospy.Subscriber("MecademicRobot_pose", Pose, self.pose_callback)
-        self.command_subscriber = rospy.Subscriber("MecademicRobot_command", String, self.command_callback)
-        self.gripper_subscriber = rospy.Subscriber("MecademicRobot_gripper", Bool, self.gripper_callback)
-        self.reply_publisher = rospy.Publisher("MecademicRobot_reply", String, queue_size=1)
-        self.joint_publisher = rospy.Publisher("MecademicRobot_joint_fb", JointState, queue_size=1)
-        self.pose_publisher = rospy.Publisher("MecademicRobot_pose_fb", Pose, queue_size=1)
-        self.status_publisher = rospy.Publisher("MecademicRobot_status", UInt8MultiArray, queue_size=1)
+        self.joint_subscriber = rospy.Subscriber("mecademic_joint_desired", JointState, self.joint_callback)
+        self.pose_subscriber = rospy.Subscriber("mecademic_pose_desired", Pose, self.pose_callback)
+        self.command_subscriber = rospy.Subscriber("mecademic_robot_command", String, self.command_callback)
+        self.gripper_subscriber = rospy.Subscriber("mecademic_gripper_desired", Bool, self.gripper_callback)
+        self.reply_publisher = rospy.Publisher("mecademic_robot_reply", String, queue_size=1)
+        self.joint_publisher = rospy.Publisher("mecademic_joint_fb", JointState, queue_size=1)
+        self.pose_publisher = rospy.Publisher("mecademic_pose_fb", Pose, queue_size=1)
+        self.status_publisher = rospy.Publisher("mecademic_robot_status", UInt8MultiArray, queue_size=1)
 
         self.robot = robot
         self.feedback = feedback

@@ -28,8 +28,8 @@ class JoystickDemo:
 		print "Detected ",self.controller.get_name()
 
 		# Setup publisher object for desired robot joint velocities
-		self.joint_state_pub = rospy.Publisher("/MecademicRobot_joint", JointState, queue_size = 1)
-		self.pose_pub = rospy.Publisher("/MecademicRobot_pose", Pose, queue_size = 1)
+		self.joint_state_pub = rospy.Publisher("/mecademic_joint_command", JointState, queue_size = 1)
+		self.pose_pub = rospy.Publisher("/mecademic_pose_command", Pose, queue_size = 1)
 
 		# Setup rospy rate object for controlling loop rate
 		self.rate = rospy.Rate(10)

@@ -12,7 +12,7 @@ from numpy import pi
 class MecademicRVIZBridge:
 	def __init__(self):
 		# Setup publishers and subscribers 
-		self.joint_state_sub = rospy.Subscriber("/MecademicRobot_joint_fb", JointState, self.joint_state_callback)
+		self.joint_state_sub = rospy.Subscriber("/mecademic_joint_fb", JointState, self.joint_state_callback)
 		self.joint_vizualizer_pub = rospy.Publisher("/joint_state_rviz", JointState, queue_size = 1)
 
 		# Mecademic number of joints 
